@@ -1,48 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { register, login, logout, refreshUser } from "./operations";
 
-const initialState = {
-  user: {
-    name: null,
-    email: null,
-  },
-  token: null,
-  isLoggedIn: false,
-  isRefreshing: false,
-};
-
+// Створюємо slice
 const authSlice = createSlice({
   name: "auth",
-  initialState,
-  extraReducers: builder => {
-    builder
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-      })
-      .addCase(logout.fulfilled, state => {
-        state.user = { name: null, email: null };
-        state.token = null;
-        state.isLoggedIn = false;
-      })
-      .addCase(refreshUser.pending, state => {
-        state.isRefreshing = true;
-      })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.isLoggedIn = true;
-        state.isRefreshing = false;
-      })
-      .addCase(refreshUser.rejected, state => {
-        state.isRefreshing = false;
-      });
+  initialState: {
+    user: null,
+    isAuthenticated: false,
+  },
+  reducers: {
+    setUser(state, action) {
+      state.user = action.payload;
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.user = null;
+      state.isAuthenticated = false;
+    },
   },
 });
 
-export default authSlice.reducer;
+// Експортуємо дії (actions)
+export const { setUser, logout } = authSlice.actions;
+
+// Експортуємо reducer під іменем authReducer
+export const authReducer = authSlice.reducer; // Використовуємо іменований експорт

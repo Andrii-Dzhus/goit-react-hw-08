@@ -1,10 +1,11 @@
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
+import styles from "./RegistrationPage.module.css";
 
-const RegistrationPage = () => {
+const RegistrationPage = ({ onRegister }) => {
   return (
-    <div>
+    <div className={styles.page}>
       <h1>Register</h1>
-      <RegistrationForm />
+      <RegistrationForm onRegister={onRegister} />
     </div>
   );
 };

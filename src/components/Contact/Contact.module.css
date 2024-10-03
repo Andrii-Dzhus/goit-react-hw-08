@@ -1,33 +1,16 @@
-.contact {
-  display: flex;
-  width: 300px;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.contactInfo {
+.form {
   display: flex;
   flex-direction: column;
 }
 
-.deleteButton {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 3px;
+.input {
+  margin-bottom: 10px;
 }
 
-.deleteButton:hover {
-  background-color: darkred;
-}
-.div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.button {
+  padding: 8px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
 }

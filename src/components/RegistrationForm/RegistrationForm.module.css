@@ -1,33 +1,38 @@
-.contact {
-  display: flex;
-  width: 300px;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.contactInfo {
+.form {
   display: flex;
   flex-direction: column;
+  gap: 16px; /* Відстань між елементами */
+  max-width: 400px; /* Максимальна ширина форми */
+  margin: 0 auto; /* Центрування форми */
 }
 
-.deleteButton {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 3px;
+.label {
+  font-weight: bold; /* Жирний текст для міток */
 }
 
-.deleteButton:hover {
-  background-color: darkred;
+.input {
+  padding: 10px; /* Внутрішній відступ */
+  border: 1px solid #ccc; /* Рамка */
+  border-radius: 4px; /* Заокруглення кутів */
+  font-size: 16px; /* Розмір шрифту */
 }
-.div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+
+.errorText {
+  color: red; /* Червоний колір для тексту помилки */
+  font-size: 14px; /* Розмір шрифту для тексту помилки */
+}
+
+.button {
+  padding: 10px; /* Внутрішній відступ */
+  background-color: blue; /* Синій фон для кнопки */
+  color: white; /* Білий текст */
+  border: none; /* Без рамки */
+  border-radius: 4px; /* Заокруглення кутів */
+  cursor: pointer; /* Показувати курсор, що вказує */
+  font-size: 16px; /* Розмір шрифту */
+}
+
+.button:disabled {
+  background-color: gray; /* Сірий фон для недоступної кнопки */
+  cursor: not-allowed; /* Вказівник "недоступно" */
 }

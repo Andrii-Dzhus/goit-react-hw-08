@@ -1,37 +1,93 @@
+import { nanoid } from "nanoid";
 import { useDispatch } from "react-redux";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { login } from "../../redux/auth/operations";
-import { useState } from "react";
+import css from "./LoginForm.module.css"; // Оновлено шлях до стилів
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const emailRegExp = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(login({ email, password }));
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string()
+      .matches(emailRegExp, "Email is not valid!")
+      .required("Required Email"),
+    password: Yup.string()
+      .min(8, "Password is too short!")
+      .max(30, "Password is too long!")
+      .required("Required Password"),
+  });
+
+  const INITIAL_VALUES = { email: "", password: "" };
+  const emailId = nanoid();
+  const passwordId = nanoid();
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values, actions) => {
+    dispatch(login(values))
+      .unwrap()
+      .then(data => {
+        toast.success(`Hello, ${data.user.name}!`);
+      })
+      .catch(() => {
+        toast.error("Wrong login or password!");
+      });
+
+    actions.resetForm();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email
-        <input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+    <Formik
+      initialValues={INITIAL_VALUES}
+      onSubmit={handleSubmit}
+      validationSchema={LoginSchema}
+    >
+      {({ errors }) => (
+        <Form className={css.form}>
+          <label htmlFor={emailId} className={css.label}>
+            Email
+          </label>
+          <Field
+            className={css.input}
+            type="text"
+            name="email"
+            id={emailId}
+            placeholder="Enter your E-mail..."
+          />
+          <ErrorMessage
+            className={css.errorText}
+            name="email"
+            component="span"
+          />
+
+          <label htmlFor={passwordId} className={css.label}>
+            Password
+          </label>
+          <Field
+            className={css.input}
+            type="password"
+            name="password"
+            id={passwordId}
+            placeholder="Enter your Password..."
+          />
+          <ErrorMessage
+            className={css.errorText}
+            name="password"
+            component="span"
+          />
+
+          <button
+            disabled={Object.keys(errors).length > 0}
+            type="submit"
+            className={css.button}
+          >
+            Login
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

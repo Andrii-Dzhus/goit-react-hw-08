@@ -1,14 +1,13 @@
-import ContactForm from "../../components/ContactForm/ContactForm";
 import ContactList from "../../components/ContactList/ContactList";
-import SearchBox from "../../components/SearchBox/SearchBox";
+import ContactForm from "../../components/ContactForm/ContactForm";
+import styles from "./ContactsPage.module.css";
 
-const ContactsPage = () => {
+const ContactsPage = ({ contacts, onAddContact, onDeleteContact }) => {
   return (
-    <div>
+    <div className={styles.page}>
       <h1>Contacts</h1>
-      <ContactForm />
-      <SearchBox />
-      <ContactList />
+      <ContactForm onSubmit={onAddContact} />
+      <ContactList contacts={contacts} onDelete={onDeleteContact} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { login } from "../../redux/auth/operations";
-import css from "./LoginForm.module.css"; // Оновлено шлях до стилів
+import css from "./LoginForm.module.css";
 import toast from "react-hot-toast";
 
 const LoginForm = () => {

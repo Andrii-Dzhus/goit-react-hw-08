@@ -4,8 +4,8 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import "modern-normalize";
 import "./index.css";
-import { persistor, store } from "./redux/store.js"; // імпортуємо store і persistor
-import { PersistGate } from "redux-persist/integration/react"; // імпортуємо PersistGate
+import { store, persistor } from "./redux/store.js";
+import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 

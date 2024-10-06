@@ -4,6 +4,10 @@
   gap: 16px; /* Відстань між елементами */
   max-width: 400px; /* Максимальна ширина форми */
   margin: 0 auto; /* Центрування форми */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  padding: 20px;
 }
 
 .label {

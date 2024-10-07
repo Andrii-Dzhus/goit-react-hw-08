@@ -31,3 +31,18 @@
   align-items: center;
   gap: 10px;
 }
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.link {
+  text-decoration: none;
+  color: #000;
+}
+
+.active {
+  font-weight: bold;
+}

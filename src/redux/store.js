@@ -1,31 +1,34 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistStore,
+import {
+  persistStore,
   persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
-  REGISTER } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // використовуємо локальне сховище
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/slice";
-import { contactsReducer } from "./contacts/slice";
+import { contactsSliceReducer } from "./contacts/slice";
+import { filtersSliceReducer } from "./filters/slice"; // Додано фільтр-редюсер
 
-
-// Налаштування персистенції
-const persistConfig = {
-  key: "root",
+// Змінено key на 'auth' і додано whitelist
+const authPersistConfig = {
+  key: "auth",
   storage,
+  whitelist: ["token"],
 };
 
-// Створіть persistedReducer
-const persistedReducer = persistReducer(persistConfig, authReducer);
+// persistReducer з використанням нового config
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
-// Налаштуйте store з ігноруванням несеріалізованих значень
 const store = configureStore({
   reducer: {
-    auth: persistedReducer,
-    contacts: contactsReducer,
+    auth: persistedAuthReducer,
+    contacts: contactsSliceReducer,
+    filters: filtersSliceReducer, // Додано filtersSliceReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -35,7 +38,6 @@ const store = configureStore({
     }),
 });
 
-// Створіть persistor
 const persistor = persistStore(store);
 
 export { store, persistor };
